@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.10](https://github.com/thaboRach/react-text-mask/compare/v1.0.9...v1.0.10) (2024-10-18)
+
+
+### Bug Fixes
+
+* **packages:** peer dependencies ([2cc4807](https://github.com/thaboRach/react-text-mask/commit/2cc48078207e8ae7144184bc32001d0a4a530f2d))
+
 ## [1.0.9](https://github.com/thaboRach/react-text-mask/compare/v1.0.8...v1.0.9) (2024-10-17)
 
 
