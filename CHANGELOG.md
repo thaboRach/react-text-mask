@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.11](https://github.com/thaboRach/react-text-mask/compare/v1.0.10...v1.0.11) (2024-11-15)
+
+
+### Bug Fixes
+
+* **bug:** update check for rawValue ([b10ef90](https://github.com/thaboRach/react-text-mask/commit/b10ef909d08bd2737fce4149a1776067b7cd4519))
+
 ## [1.0.10](https://github.com/thaboRach/react-text-mask/compare/v1.0.9...v1.0.10) (2024-10-18)
 
 
