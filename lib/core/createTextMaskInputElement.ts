@@ -51,7 +51,7 @@ export default function createTextMaskInputElement(config: MainConfig): TextMask
 
       // If `rawValue` equals `state.previousConformedValue`, we don't need to change anything. So, we return.
       // This check is here to handle controlled framework components that repeat the `update` call on every render.
-      if (rawValue === state.previousConformedValue) {
+      if (rawValue === state.previousConformedValue && rawValue !== '') {
         return;
       }
 
@@ -229,6 +229,6 @@ function getSafeRawValue(inputValue: string | number): string {
 
   throw new Error(
     "The 'value' provided to Text Mask needs to be a string or a number. The value " +
-      `received was:\n\n ${JSON.stringify(inputValue)}`,
+    `received was:\n\n ${JSON.stringify(inputValue)}`,
   );
 }

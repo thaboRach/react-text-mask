@@ -137,10 +137,4 @@ export class MaskedInput extends React.PureComponent<Props, State> {
   }
 }
 
-MaskedInput.defaultProps = {
-  mask: [],
-  render: (ref, props) => <input ref={ref} {...props} />,
-  type: 'text',
-};
-
 export { default as conformToMask } from '../../core/conformToMask.js';
