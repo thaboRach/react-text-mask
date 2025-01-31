@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.12](https://github.com/thaboRach/react-text-mask/compare/v1.0.11...v1.0.12) (2025-01-31)
+
+
+### Bug Fixes
+
+* **bug:** enable input value reset, remove deprecated defaultProps, update React peer dependencies ([0cf79f6](https://github.com/thaboRach/react-text-mask/commit/0cf79f699f56d055ccf585b350e2c37375278eb8))
+
 ## [1.0.11](https://github.com/thaboRach/react-text-mask/compare/v1.0.10...v1.0.11) (2024-11-15)
 
 
