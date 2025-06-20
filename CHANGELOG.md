@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.13](https://github.com/thaboRach/react-text-mask/compare/v1.0.12...v1.0.13) (2025-06-20)
+
+
+### Bug Fixes
+
+* **deps:** add support for React 19 ([9bb98de](https://github.com/thaboRach/react-text-mask/commit/9bb98de063f7ee4941e6b2ccd735090cf84e68f4))
+* **deps:** add support for React 19 ([eaae302](https://github.com/thaboRach/react-text-mask/commit/eaae302360192bd74a491fa2d08be967c585a027))
+
 ## [1.0.12](https://github.com/thaboRach/react-text-mask/compare/v1.0.11...v1.0.12) (2025-01-31)
 
 
