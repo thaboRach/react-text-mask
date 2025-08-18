@@ -37,11 +37,10 @@ export default function createNumberMask({
   allowNegative = false,
   allowLeadingZeroes = false,
   integerLimit = null,
-}: CreateNumberMask) {
-  const prefixLength = (prefix && prefix.length) || 0;
-  const suffixLength = (suffix && suffix.length) || 0;
-  const thousandsSeparatorSymbolLength =
-    (thousandsSeparatorSymbol && thousandsSeparatorSymbol.length) || 0;
+}: Partial<CreateNumberMask>) {
+  const prefixLength = prefix?.length || 0;
+  const suffixLength = suffix?.length || 0;
+  const thousandsSeparatorSymbolLength = thousandsSeparatorSymbol?.length || 0;
 
   function numberMask(rawValue = EmptyString) {
     const rawValueLength = rawValue.length;
@@ -59,7 +58,7 @@ export default function createNumberMask({
       );
     }
 
-    const isNegative = rawValue[0] === Minus && allowNegative;
+    const isNegative = rawValue.startsWith(Minus) && allowNegative;
     //If negative remove "-" sign
     if (isNegative) {
       rawValue = rawValue.toString().substr(1);

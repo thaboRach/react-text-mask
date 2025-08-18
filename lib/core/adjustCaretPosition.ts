@@ -8,7 +8,7 @@ type Parameter = {
   rawValue: string;
   placeholderChar: string;
   placeholder?: string;
-  indexesOfPipedChars: number[];
+  indexesOfPipedChars?: number[];
   caretTrapIndexes?: number[];
 };
 

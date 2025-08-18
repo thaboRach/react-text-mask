@@ -1,20 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { MaskedInput } from '../../lib';
+import { emailMask, MaskedInput } from '../../lib';
 
-// More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
   title: 'Components/MaskedInput',
   component: MaskedInput,
   parameters: {
-    // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
     layout: 'centered',
   },
-  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ['autodocs'],
-  // More on argTypes: https://storybook.js.org/docs/api/argtypes
   argTypes: {
     mask: {
+      type: 'string',
       control: 'object',
       description: 'The input mask to use which can be an array or a function',
     },
@@ -68,11 +65,23 @@ const meta = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+// ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
 
-// More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const TelephoneInput: Story = {
   args: {
-    mask: ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
+    mask: ["+", "1", " ", "(", /\d/, /\d/, /\d/, ")", " ", /\d/, /\d/, /\d/, "-", /\d/, /\d/, /\d/, /\d/],
+    type: 'tel',
+    guide: false,
+    placeholderChar: '_',
+    showMask: true,
+    keepCharPositions: false,
+  },
+};
+
+
+export const EmailInput: Story = {
+  args: {
+    mask: emailMask.mask,
     type: 'tel',
     guide: false,
     placeholderChar: '_',

@@ -11,7 +11,7 @@ import {
 export default function conformToMask(
   rawValue: string = EmptyString,
   mask: Mask = EmptyArray,
-  config: ConformMaskConfig,
+  config: Partial<ConformMaskConfig>,
 ): { conformedValue: string; meta: { someCharsRejected: boolean } } {
   // If someone passes a function as the mask property, we should call the
   // function to get the mask array - Normally this is handled by the
@@ -19,14 +19,14 @@ export default function conformToMask(
   // to be used directly with `conformToMask`
   if (isMaskFunction(mask)) {
     // call the mask function to get the mask array
-    mask = mask(rawValue);
+    mask = mask(rawValue, config);
 
     // mask functions can setup caret traps to have some control over how the caret moves. We need to process
     // the mask for any caret traps. `processCaretTraps` will remove the caret traps from the mask
     mask = processCaretTraps(mask).maskWithoutCaretTraps;
   }
 
-  if (!isMaskArray(mask) || typeof mask === 'boolean') {
+  if ((mask && !isMaskArray(mask)) || typeof mask === 'boolean') {
     throw new Error('Text-mask: conformToMask: The mask property must be an array.');
   }
 

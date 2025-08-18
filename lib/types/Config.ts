@@ -2,7 +2,7 @@ import { Mask } from './Mask';
 import { Pipe } from './Pipe';
 
 export type MainConfig = {
-  mask: Mask;
+  mask?: Mask;
   guide?: boolean; // Default is true
   placeholderChar?: string; // Default is '_'(underscore)
   keepCharPositions?: boolean; // Default is false
@@ -24,5 +24,5 @@ export type ConformMaskConfig = {
   // Not documented
   placeholder?: string;
   currentCaretPosition?: number | null;
-  keepCharPositions: boolean;
+  keepCharPositions?: boolean;
 };
