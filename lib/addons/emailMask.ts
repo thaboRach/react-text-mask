@@ -1,4 +1,4 @@
-import { MainConfig } from '../types/Config';
+import { ConformMaskConfig } from '../types/Config';
 import {
   AllWhitespaceRegExp,
   AnyNonDotOrWhitespaceRegExp,
@@ -13,7 +13,7 @@ import {
 } from '../utils/constants';
 import emailPipe from './emailPipe';
 
-function emailMask(rawValue: string, config: MainConfig) {
+function emailMask(rawValue: string, config: ConformMaskConfig) {
   rawValue = rawValue.replace(AllWhitespaceRegExp, EmptyString);
 
   const { placeholderChar, currentCaretPosition } = config;
@@ -21,21 +21,21 @@ function emailMask(rawValue: string, config: MainConfig) {
   const indexOfLastDot = rawValue.lastIndexOf(Dot);
   const indexOfTopLevelDomainDot = indexOfLastDot < indexOfFirstAtSymbol ? -1 : indexOfLastDot;
 
-  let localPartToDomainConnector = getConnector(rawValue, indexOfFirstAtSymbol + 1, AtSymbol);
-  let domainNameToTopLevelDomainConnector = getConnector(
+  const localPartToDomainConnector = getConnector(rawValue, indexOfFirstAtSymbol + 1, AtSymbol);
+  const domainNameToTopLevelDomainConnector = getConnector(
     rawValue,
     indexOfTopLevelDomainDot - 1,
     Dot,
   );
 
-  let localPart = getLocalPart(rawValue, indexOfFirstAtSymbol);
-  let domainName = getDomainName(
+  const localPart = getLocalPart(rawValue, indexOfFirstAtSymbol);
+  const domainName = getDomainName(
     rawValue,
     indexOfFirstAtSymbol,
     indexOfTopLevelDomainDot,
     placeholderChar,
   );
-  let topLevelDomain = getTopLevelDomain(
+  const topLevelDomain = getTopLevelDomain(
     rawValue,
     indexOfTopLevelDomainDot,
     placeholderChar,
@@ -131,11 +131,10 @@ function getTopLevelDomain(
 }
 
 function convertToMask(str: string, noDots?: boolean): (RegExp | string)[] {
-  return str
-    .split(EmptyString)
-    .map((char) =>
-      char === Space ? char : noDots ? AnyNonDotOrWhitespaceRegExp : AnyNonWhitespaceRegExp,
-    );
+  return str.split(EmptyString).map((char) => {
+    const dotsRegExp = noDots ? AnyNonDotOrWhitespaceRegExp : AnyNonWhitespaceRegExp;
+    return char === Space ? char : dotsRegExp;
+  });
 }
 
 export default { mask: emailMask, pipe: emailPipe };

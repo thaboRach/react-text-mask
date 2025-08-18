@@ -1,5 +1,4 @@
-import { FormatOrder, MaxValueMonth } from "../utils/constants";
-
+import { FormatOrder, MaxValueMonth } from '../utils/constants';
 
 export default function createAutoCorrectedDatePipe(
   dateFormat = 'mm dd yyyy',
@@ -10,9 +9,25 @@ export default function createAutoCorrectedDatePipe(
     .sort((a, b) => FormatOrder.indexOf(a) - FormatOrder.indexOf(b));
 
   return function (conformedValue: string) {
-    const indexesOfPipedChars: string[] = [];
-    const maxValue: {[key: string]: number} = { dd: 31, mm: 12, yy: 99, yyyy: maxYear, HH: 23, MM: 59, SS: 59 };
-    const minValue: {[key: string]: number} = { dd: 1, mm: 1, yy: 0, yyyy: minYear, HH: 0, MM: 0, SS: 0 };
+    const indexesOfPipedChars: number[] = [];
+    const maxValue: { [key: string]: number } = {
+      dd: 31,
+      mm: 12,
+      yy: 99,
+      yyyy: maxYear,
+      HH: 23,
+      MM: 59,
+      SS: 59,
+    };
+    const minValue: { [key: string]: number } = {
+      dd: 1,
+      mm: 1,
+      yy: 0,
+      yyyy: minYear,
+      HH: 0,
+      MM: 0,
+      SS: 0,
+    };
     const conformedValueArr = conformedValue.split('');
 
     // Check first digit
@@ -23,7 +38,7 @@ export default function createAutoCorrectedDatePipe(
       if (parseInt(conformedValueArr[position], 10) > maxFirstDigit) {
         conformedValueArr[position + 1] = conformedValueArr[position];
         conformedValueArr[position] = '0';
-        indexesOfPipedChars.push(position.toString());
+        indexesOfPipedChars.push(position);
       }
     });
 

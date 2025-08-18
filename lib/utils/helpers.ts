@@ -86,3 +86,25 @@ export function isPipeResultsString(pipeResults: PipeResult): pipeResults is str
 export function isPipeResultsObject(pipeResults: PipeResult): pipeResults is PipeResultObject {
   return (pipeResults as PipeResultObject) !== undefined;
 }
+
+export function pick<T extends object, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> {
+  return keys.reduce(
+    (acc, key) => {
+      if (key in obj) {
+        acc[key] = obj[key];
+      }
+      return acc;
+    },
+    {} as Pick<T, K>,
+  );
+}
+
+export function getLineNumber() {
+  const err = new Error();
+  const stack = err['stack'];
+  const stackLines = stack?.split('\n');
+  const calleeLine = stackLines?.[2];
+  const lineNumber = calleeLine?.match(/\(.+:(\d+):\d+\)/)?.[1];
+
+  return lineNumber;
+}

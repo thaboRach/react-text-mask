@@ -1,8 +1,9 @@
+import { ConformMaskConfig } from './Config';
 import { Pipe } from './Pipe';
 
 export type MaskArray = (RegExp | string)[] | boolean;
 
-export type MaskFunc = (rawValue: string) => MaskArray | boolean;
+export type MaskFunc = (rawValue: string, config: ConformMaskConfig) => MaskArray;
 
 export type MaskObject = {
   mask: MaskArray | MaskFunc;

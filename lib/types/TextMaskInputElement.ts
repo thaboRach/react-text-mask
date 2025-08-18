@@ -5,5 +5,5 @@ export type TextMaskInputElementResult = {
     previousConformedValue: string;
     previousPlaceholder: string;
   };
-  update(rawValue?: string, config?: MainConfig): void;
+  update(rawValue?: string | number | null, config?: MainConfig): void;
 };
