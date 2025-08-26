@@ -1,14 +1,17 @@
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/thaboRach/react-text-mask/build.yml)
+![GitHub License](https://img.shields.io/github/license/thaboRach/react-text-mask)
+
 # @thaborach/react-text-mask
 
 React Text Mask is an input mask library. It can create input masks for phone, date, currency, zip code, percentage, email,
 and literally anything!
 
-* It is very configurable and allows you to create any type of input mask with minimal APIs.
+- It is very configurable and allows you to create any type of input mask with minimal APIs.
 
-* It supports pasting, browser auto-fill, and all operations that a user would expect while interacting with
-an input field.
+- It supports pasting, browser auto-fill, and all operations that a user would expect while interacting with
+  an input field.
 
-* It works on mobile, has no 3rd party dependencies, and has a tiny footprint (less than 4KB gzipped).
+- It works on mobile, has no 3rd party dependencies, and has a tiny footprint (less than 4KB gzipped).
 
 It is forked from [text mask](https://github.com/text-mask/text-mask) which is deprecated and no longer being maintained.
 
@@ -16,11 +19,11 @@ It is forked from [text mask](https://github.com/text-mask/text-mask) which is d
 
 ## Table of Contents
 
-* [Installation and usage](#installation-and-usage)
-* [Properties](#properties)
-* [Utilities](#utilities)
-* [Contributing](#contributing)
-* [Questions, suggestions, or feature requests](#for-any-questions-suggestions-or-feature-requests)
+- [Installation and usage](#installation-and-usage)
+- [Properties](#properties)
+- [Utilities](#utilities)
+- [Contributing](#contributing)
+- [Questions, suggestions, or feature requests](#for-any-questions-suggestions-or-feature-requests)
 
 ## Installation and usage
 
@@ -41,19 +44,18 @@ yarn add @thaborach/react-text-mask
 ### Usage
 
 ```js
-import React from 'react'
-import { MaskedInput } from 'react-text-mask'
+import React from 'react';
+import { MaskedInput } from 'react-text-mask';
 
-export default function TelephoneInput(){
-    
-    return (
-        <div>
-            <MaskedInput
-                type='tel'
-                mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
-            />
-        </div>
-    )
+export default function TelephoneInput() {
+  return (
+    <div>
+      <MaskedInput
+        type='tel'
+        mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+      />
+    </div>
+  );
 }
 ```
 
@@ -65,11 +67,11 @@ For example, the following works:
 ```js
 <MaskedInput
   mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
-  type="tel"
-  className="form-control"
-  placeholder="Enter a phone number"
+  type='tel'
+  className='form-control'
+  placeholder='Enter a phone number'
   guide={false}
-  id="my-input-id"
+  id='my-input-id'
   onBlur={() => {}}
   onChange={() => {}}
 />
@@ -79,14 +81,14 @@ For example, the following works:
 
 Text Mask accepts the following values as props:
 
-* [`mask`](#mask) (array, function, object or boolean) (required)
-* [`type`](#type) ('text' | 'tel' | 'url' | 'password' | 'search') (optional)
-* [`guide`](#guide) (boolean) (optional)
-* [`pipe`](#pipe) (function) (optional)
-* [`placeholderChar`](#placeholderchar) (string) (optional)
-* [`keepCharPositions`](#keepcharpositions) (boolean) (optional)
-* [`showMask`](#showmask) (boolean) (optional)
-* [`render`](#render) (function) (optional)
+- [`mask`](#mask) (array, function, object or boolean) (required)
+- [`type`](#type) ('text' | 'tel' | 'url' | 'password' | 'search') (optional)
+- [`guide`](#guide) (boolean) (optional)
+- [`pipe`](#pipe) (function) (optional)
+- [`placeholderChar`](#placeholderchar) (string) (optional)
+- [`keepCharPositions`](#keepcharpositions) (boolean) (optional)
+- [`showMask`](#showmask) (boolean) (optional)
+- [`render`](#render) (function) (optional)
 
 ### `mask`
 
@@ -103,7 +105,7 @@ The regular expression will be used to test user input and either allow it or re
 For example, a mask for a U.S. based phone number such as `(555) 392-4932`, could be:
 
 ```js
-['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
+['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 ```
 
 That means the user can only enter a number between 1 and 9 in the first placeholder, and only a digit in the placeholders after that.
@@ -116,10 +118,12 @@ You can also pass a function as the `mask`. The function will receive the user i
 change. The function is expected to return a `mask` array as described [above](#mask).
 
 ```js
-const mask = function(rawValue) {
+const mask = function (rawValue) {
   // add logic to generate your mask array
-  return [ /*your mask array*/ ]
-}
+  return [
+    /*your mask array*/
+  ];
+};
 ```
 
 This feature is useful when we want to format a user input of unknown length, such as
@@ -150,7 +154,7 @@ Due to a limitation in browser API, other input types, such as `email` or `numbe
 
 ### `guide`
 
-`guide` is a boolean that tells the component whether to be in *guide* or *no guide* mode.
+`guide` is a boolean that tells the component whether to be in _guide_ or _no guide_ mode.
 
 **It is set to `true` by default.**
 
@@ -224,7 +228,7 @@ The placeholder character represents the fillable spot in the mask.
 For example, with mask...
 
 ```js
-['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
+['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 ```
 
 ...the user would fill out `(___) ___-____`.
@@ -294,12 +298,10 @@ For example, to use with styled-components,
 ```js
 <MaskedInput
   mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
-  placeholder="Enter a phone number"
-  id="my-input-id"
-  render={(ref, props) => (
-    <MyStyledInput innerRef={ref} {...props} />
-  )}
-/>
+  placeholder='Enter a phone number'
+  id='my-input-id'
+  render={(ref, props) => <MyStyledInput innerRef={ref} {...props} />}
+/>;
 
 const MyStyledInput = styled.input`
   background: papayawhip;
@@ -310,8 +312,8 @@ const MyStyledInput = styled.input`
 
 In addition to the Mask Input component there are additional utility functions that you can utilize, such as:
 
-* [`conformToMask`](#conformtomask)
-* [`Addons`](#add-ons)
+- [`conformToMask`](#conformtomask)
+- [`Addons`](#add-ons)
 
 ### `conformToMask`
 
@@ -329,9 +331,9 @@ import { MaskedInput, conformToMask } from 'react-text-mask';
 
 `conformToMask` accepts three arguments:
 
-* text (string) (required)
-* [mask](#mask) (array) (required)
-* config (object) (optional)
+- text (string) (required)
+- [mask](#mask) (array) (required)
+- config (object) (optional)
 
 `config` is [these values](https://github.com/text-mask/text-mask/blob/master/core/src/conformToMask.js#L9-L14).
 The linked variable names have similar names to properties that are described above in this document. So you can learn what each one is for by reading the documentation above.
@@ -350,16 +352,27 @@ The return value of `conformToMask` is an object with the following shape:
 So, one way to use `conformToMask` could be as follows:
 
 ```js
-const phoneNumber = '5551234444'
-const phoneNumberMask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
+const phoneNumber = '5551234444';
+const phoneNumberMask = [
+  '(',
+  /[1-9]/,
+  /\d/,
+  /\d/,
+  ')',
+  ' ',
+  /\d/,
+  /\d/,
+  /\d/,
+  '-',
+  /\d/,
+  /\d/,
+  /\d/,
+  /\d/,
+];
 
-const conformedPhoneNumber = conformToMask(
-  phoneNumber,
-  phoneNumberMask,
-  {guide: false}
-)
+const conformedPhoneNumber = conformToMask(phoneNumber, phoneNumberMask, { guide: false });
 
-console.log(conformedPhoneNumber.conformedValue) // prints (555) 123-4444
+console.log(conformedPhoneNumber.conformedValue); // prints (555) 123-4444
 ```
 
 ### Add ons
