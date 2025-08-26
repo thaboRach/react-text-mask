@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.0](https://github.com/thaboRach/react-text-mask/compare/v1.0.13...v1.1.0) (2025-08-26)
+
+
+### Features
+
+* update readme ([9a11025](https://github.com/thaboRach/react-text-mask/commit/9a11025834392ca338ff19ab56e9d2652c9a8638))
+* update readme ([7587219](https://github.com/thaboRach/react-text-mask/commit/75872194a17242fdfd289d0f2879436f632559b1))
+
 ## [1.0.13](https://github.com/thaboRach/react-text-mask/compare/v1.0.12...v1.0.13) (2025-06-20)
 
 
