@@ -20,7 +20,10 @@ type ComponentProps = React.InputHTMLAttributes<HTMLInputElement> & {
 };
 
 type Props = ComponentProps & {
-  render?: (ref: (inputElement: HTMLInputElement) => void, props: ComponentProps) => ReactNode;
+  render?: (
+    ref: (inputElement: HTMLInputElement) => void,
+    props: Omit<ComponentProps, 'mask'>,
+  ) => ReactNode;
 };
 
 type State = {};
@@ -31,7 +34,11 @@ export class MaskedInput extends React.PureComponent<Props, State> {
 
   static defaultProps: Props = {
     mask: [],
-    render: (ref, props) => <input ref={ref} {...props} />,
+    render: (ref, props) => {
+      // Exclude placeholderChar, guide, keepCharPositions, and showMask from native input
+      const { placeholderChar, guide, keepCharPositions, showMask, ...inputProps } = props;
+      return <input ref={ref} {...inputProps} />;
+    },
     type: 'text',
   };
 
@@ -127,13 +134,21 @@ export class MaskedInput extends React.PureComponent<Props, State> {
       ...rest
     } = this.props;
 
-    return render(this.setRef, {
-      mask,
+    // exclude 'mask' in renderProps
+    const renderProps = {
+      guide,
+      pipe,
+      placeholderChar,
+      keepCharPositions,
+      value,
+      showMask,
       onBlur: this.onBlur,
       onChange: this.onChange,
       defaultValue: this.props.value,
       ...rest,
-    });
+    };
+
+    return render(this.setRef, renderProps);
   }
 }
 
