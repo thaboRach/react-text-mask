@@ -13,34 +13,29 @@ async function input(inputElement: HTMLInputElement, rawValue: string, currentCa
 
 function expectResults(inputElement: HTMLInputElement, conformedValue: string, adjustedCaretPosition: number) {
   expect(inputElement).toHaveValue(conformedValue);
-  expect(inputElement.selectionStart).to.equal(adjustedCaretPosition);
+  expect(inputElement.selectionStart).toEqual(adjustedCaretPosition);
 }
 
 
-describe.skip('emailMask', () => {
+describe('emailMask', () => {
 
-  it('masks initial input as follows `a@ .`', async () => {
+  it('should mask initial input as follows `a@ .`', async () => {
     render(<MaskedInput type="tel" mask={emailMask.mask} />)
-    const maskedInput = screen.getByRole('textbox') as HTMLInputElement;
+    const maskedInput: HTMLInputElement = screen.getByRole('textbox');
 
-    await userEvent.clear(maskedInput);
-    await userEvent.type(maskedInput, 'a');
-
-    maskedInput.focus();
-    maskedInput.setSelectionRange(1, 1);
-
+    await input(maskedInput, 'a', 1)
     expectResults(maskedInput, 'a@ .', 1)
   })
 
   it('allows a dot at the end of the local part', async () => {
     render(<MaskedInput type="tel" mask={emailMask.mask} />);
-    const maskedInput = screen.getByRole('textbox') as HTMLInputElement;
+    const maskedInput: HTMLInputElement = screen.getByRole('textbox');
 
     await input(maskedInput, 'a.', 2);
     expectResults(maskedInput, 'a.@ .', 2);
   })
 
-  it('moves the caret to after the @ symbol when user enters an @ symbol where the current @ symbol is', async () => {
+  it.skip('moves the caret to after the @ symbol when user enters an @ symbol where the current @ symbol is', async () => {
     render(<MaskedInput type="tel" mask={emailMask.mask} />)
     const maskedInput: HTMLInputElement = screen.getByRole('textbox');
 
@@ -48,7 +43,7 @@ describe.skip('emailMask', () => {
     expectResults(maskedInput, 'a@.', 2)
   })
 
-  it('moves the caret to after the TLD dot when user enters a dot where the current TLD dot is', async () => {
+  it.skip('moves the caret to after the TLD dot when user enters a dot where the current TLD dot is', async () => {
     render(<MaskedInput type="tel" mask={emailMask.mask} />)
     const maskedInput = screen.getByRole('textbox') as HTMLInputElement;
 
@@ -59,7 +54,7 @@ describe.skip('emailMask', () => {
     expectResults(maskedInput, 'a@a.com', 4)
   })
 
-  it('limits the number of @ symbols in input to 1', async () => {
+  it.skip('limits the number of @ symbols in input to 1', async () => {
     render(<MaskedInput type="tel" mask={emailMask.mask} />)
     const maskedInput: HTMLInputElement = screen.getByRole('textbox');
 
@@ -79,7 +74,7 @@ describe.skip('emailMask', () => {
     expectResults(maskedInput, 'a@a.com', 6);
   })
 
-  it('does not add a placeholder in the end when user types a dot after the TLD dot when there is no TLD', async () => {
+  it.skip('does not add a placeholder in the end when user types a dot after the TLD dot when there is no TLD', async () => {
     render(<MaskedInput type="tel" mask={emailMask.mask} />)
     const maskedInput = screen.getByRole('textbox') as HTMLInputElement;
 
@@ -90,7 +85,7 @@ describe.skip('emailMask', () => {
     expectResults(maskedInput, 'a@a.', 4)
   })
 
-  it('removes the dot in the end if the domain part already contains a dot', async () => {
+  it.skip('removes the dot in the end if the domain part already contains a dot', async () => {
     render(<MaskedInput type="tel" mask={emailMask.mask} />)
     const maskedInput = screen.getByRole('textbox') as HTMLInputElement;
 
@@ -101,7 +96,7 @@ describe.skip('emailMask', () => {
     expectResults(maskedInput, 'a@a.com', 4)
   })
 
-  it('prevents two consecutive dots', async () => {
+  it.skip('prevents two consecutive dots', async () => {
     render(<MaskedInput type="tel" mask={emailMask.mask} />)
     const maskedInput = screen.getByRole('textbox') as HTMLInputElement;
 
@@ -112,7 +107,7 @@ describe.skip('emailMask', () => {
     expectResults(maskedInput, 'a@a.a.com', 4)
   })
 
-  it('just moves the caret over when user enters a dot before the TLD dot', async () => {
+  it.skip('just moves the caret over when user enters a dot before the TLD dot', async () => {
     render(<MaskedInput type="tel" mask={emailMask.mask} />)
     const maskedInput = screen.getByRole('textbox') as HTMLInputElement;
 
@@ -123,9 +118,9 @@ describe.skip('emailMask', () => {
     expectResults(maskedInput, 'a@a.com', 4)
   })
 
-  it('works as expected', async () => {
+  it.skip('works as expected', async () => {
     render(<MaskedInput type="tel" mask={emailMask.mask} />)
-    const maskedInput = screen.getByRole('textbox') as HTMLInputElement;
+    const maskedInput: HTMLInputElement = screen.getByRole('textbox');
 
     await input(maskedInput, 'a', 1);
     expectResults(maskedInput, 'a@ .', 1);

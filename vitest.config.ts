@@ -5,5 +5,11 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     setupFiles: 'lib/tests/setup.ts',
+    coverage: {
+      enabled: true,
+      include: ['lib/'],
+      exclude: ['lib/index.ts', 'lib/common', 'lib/types'],
+      reporter: ['html', 'json'],
+    },
   },
 });

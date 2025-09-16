@@ -99,7 +99,7 @@ function getDomainName(
     return Asterisk;
   } else if (domainName.length < 1) {
     return Space;
-  } else if (domainName[domainName.length - 1] === Dot) {
+  } else if (domainName.endsWith(Dot)) {
     return domainName.slice(0, domainName.length - 1);
   } else {
     return domainName;
