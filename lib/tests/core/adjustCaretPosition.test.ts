@@ -32,7 +32,7 @@ describe('adjustCaretPosition', () => {
         rawValue: '',
         currentCaretPosition: 3,
       }),
-    ).to.equal(0);
+    ).toBe(0);
   });
 
   it('places the caret after the last change when operation is addition', () => {
@@ -45,7 +45,7 @@ describe('adjustCaretPosition', () => {
         rawValue: '2938',
         currentCaretPosition: 4,
       }),
-    ).to.equal(4);
+    ).toBe(4);
   });
 
   it(
@@ -76,7 +76,7 @@ describe('adjustCaretPosition', () => {
           placeholderChar: PlaceholderChar,
           currentCaretPosition: 11,
         }),
-      ).to.equal(10);
+      ).toBe(10);
     },
   );
 
@@ -114,7 +114,7 @@ describe('adjustCaretPosition', () => {
           placeholderChar: PlaceholderChar,
           currentCaretPosition: 5,
         }),
-      ).to.equal(11);
+      ).toBe(11);
     },
   );
 
@@ -146,7 +146,7 @@ describe('adjustCaretPosition', () => {
           placeholderChar: PlaceholderChar,
           currentCaretPosition: 4,
         }),
-      ).to.equal(4);
+      ).toBe(4);
     },
   );
 
@@ -163,7 +163,7 @@ describe('adjustCaretPosition', () => {
           placeholderChar: PlaceholderChar,
           currentCaretPosition: 4,
         }),
-      ).to.equal(6);
+      ).toBe(6);
 
       expect(
         adjustCaretPosition({
@@ -174,7 +174,7 @@ describe('adjustCaretPosition', () => {
           placeholderChar: PlaceholderChar,
           currentCaretPosition: 3,
         }),
-      ).to.equal(3);
+      ).toBe(3);
     },
   );
 
@@ -191,7 +191,7 @@ describe('adjustCaretPosition', () => {
           placeholderChar: PlaceholderChar,
           currentCaretPosition: 6,
         }),
-      ).to.equal(4);
+      ).toBe(4);
 
       expect(
         adjustCaretPosition({
@@ -202,7 +202,7 @@ describe('adjustCaretPosition', () => {
           placeholderChar: PlaceholderChar,
           currentCaretPosition: 6,
         }),
-      ).to.equal(4);
+      ).toBe(4);
     },
   );
 });
@@ -225,7 +225,7 @@ describe('Guide mode', () => {
         placeholderChar: PlaceholderChar,
         currentCaretPosition: input.currentCaretPosition,
       }),
-    ).to.equal(input.adjustedCaretPosition);
+    ).toBe(input.adjustedCaretPosition);
   });
 });
 
@@ -240,7 +240,7 @@ describe('No-guide mode', () => {
         placeholderChar: PlaceholderChar,
         currentCaretPosition: input.currentCaretPosition,
       }),
-    ).to.equal(input.adjustedCaretPosition);
+    ).toBe(input.adjustedCaretPosition);
   });
 });
 
@@ -259,7 +259,7 @@ describe('Mask function tests', () => {
         placeholderChar: PlaceholderChar,
         currentCaretPosition: input.currentCaretPosition,
       }),
-    ).to.equal(input.adjustedCaretPosition);
+    ).toBe(input.adjustedCaretPosition);
   });
 });
 
@@ -275,7 +275,7 @@ describe('Caret trap tests', () => {
         currentCaretPosition: input.currentCaretPosition,
         caretTrapIndexes: input.caretTrapIndexes,
       }),
-    ).to.equal(input.adjustedCaretPosition);
+    ).toBe(input.adjustedCaretPosition);
   });
 });
 
@@ -289,8 +289,7 @@ describe('Accepted char in mask', () => {
         placeholder: convertMaskToPlaceholder(input.mask),
         placeholderChar: PlaceholderChar,
         currentCaretPosition: input.currentCaretPosition,
-        // caretTrapIndexes: input?.caretTrapIndexes,
       }),
-    ).to.equal(input.adjustedCaretPosition);
+    ).toBe(input.adjustedCaretPosition);
   });
 });

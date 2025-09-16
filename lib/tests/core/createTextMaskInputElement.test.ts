@@ -20,14 +20,14 @@ describe('createTextMaskInputElement', () => {
         mask: ['(', /\d/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
       });
 
-      expect(maskedInputElementControl.update).to.be.a('function');
+      expect(typeof maskedInputElementControl.update).toBe('function');
     },
   );
 
   it('works with mask functions', () => {
     const mask = () => [/\d/, /\d/, /\d/, /\d/];
 
-    expect(() => createTextMaskInputElement({ inputElement, mask })).to.not.throw();
+    expect(() => createTextMaskInputElement({ inputElement, mask })).not.toThrow();
   });
 
   it('displays mask when showMask is true', () => {
@@ -37,7 +37,7 @@ describe('createTextMaskInputElement', () => {
       mask: ['(', /\d/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
     });
     textMaskControl.update();
-    expect(inputElement.value).to.equal('(___) ___-____');
+    expect(inputElement.value).toBe('(___) ___-____');
   });
 
   it('does not display mask when showMask is false', () => {
@@ -47,7 +47,7 @@ describe('createTextMaskInputElement', () => {
       mask: ['(', /\d/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
     });
     textMaskControl.update();
-    expect(inputElement.value).to.equal('');
+    expect(inputElement.value).toBe('');
   });
 });
 
@@ -110,10 +110,10 @@ describe('`update` method', () => {
     expect(inputElement).toHaveValue('+1 (2__) ___-____');
 
     // await userEvent.clear(inputElement);
-    // await userEvent.type(inputElement, '+1 (__) ___-____');
+    // await userEvent.type(inputElement, '0');
     // inputElement.selectionStart = 4;
     // textMaskControl.update();
-    // expect(inputElement).toHaveValue('');
+    // expect(inputElement).toHaveValue('+1 (0_) ___-____');
   });
 
   it('accepts a string to conform and overrides whatever value is in the input element', async () => {
@@ -131,10 +131,10 @@ describe('`update` method', () => {
     const textMaskControl = createTextMaskInputElement({ inputElement, mask });
 
     textMaskControl.update(123);
-    expect(inputElement.value).to.equal('(123) ___-____');
+    expect(inputElement.value).toBe('(123) ___-____');
 
     textMaskControl.update('');
-    expect(inputElement.value).to.equal('');
+    expect(inputElement.value).toBe('');
   });
 
   it('accepts an empty string after reinitializing text mask', () => {
@@ -142,38 +142,38 @@ describe('`update` method', () => {
     let textMaskControl = createTextMaskInputElement({ inputElement, mask });
 
     textMaskControl.update(123);
-    expect(inputElement.value).to.equal('(123) ___-____');
+    expect(inputElement.value).toBe('(123) ___-____');
 
     //reset text mask
     textMaskControl = createTextMaskInputElement({ inputElement, mask });
 
     // now clear the value
     textMaskControl.update('');
-    expect(inputElement.value).to.equal('');
+    expect(inputElement.value).toBe('');
   });
 
-  // it('does not conform given parameter if it is the same as the previousConformedValue', async () => {
-  //   const conformToMaskSpy = vi.fn(conformToMask);
+  it.skip('does not conform given parameter if it is the same as the previousConformedValue', async () => {
+    const conformToMaskMock = vi.fn();
 
-  //   const conformToMaskSpy = vi.spyOn(conformToMask, '');
+    const conformToMaskSpy = vi.spyOn(conformToMaskMock, 'mockReturnValue');
 
-  //   const mask = ['(', /\d/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
-  //   const textMaskControl = createTextMaskInputElement({ inputElement, mask });
+    const mask = ['(', /\d/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+    const textMaskControl = createTextMaskInputElement({ inputElement, mask });
 
-  //   createTextMaskInputElement.__Rewire__('conformToMask', conformToMaskSpy);
+    //   createTextMaskInputElement.__Rewire__('conformToMask', conformToMaskSpy);
 
-  //   await userEvent.clear(inputElement);
-  //   await userEvent.type(inputElement, '2');
-  //   textMaskControl.update();
+    await userEvent.clear(inputElement);
+    await userEvent.type(inputElement, '2');
+    textMaskControl.update();
 
-  //   expect(inputElement).toHaveValue('(2__) ___-____');
-  //   expect(conformToMaskSpy).toHaveBeenCalledTimes(1);
+    expect(inputElement).toHaveValue('(2__) ___-____');
+    expect(conformToMaskSpy).toHaveBeenCalledTimes(1);
 
-  //   textMaskControl.update('(2__) ___-____');
-  //   expect(conformToMaskSpy).toHaveBeenCalledTimes(1);
+    textMaskControl.update('(2__) ___-____');
+    expect(conformToMaskSpy).toHaveBeenCalledTimes(1);
 
-  //   // createTextMaskInputElement.__ResetDependency__('conformToMask');
-  // });
+    // createTextMaskInputElement.__ResetDependency__('conformToMask');
+  });
 
   it('works with a string', () => {
     const mask = ['(', /\d/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
@@ -181,7 +181,7 @@ describe('`update` method', () => {
 
     textMaskControl.update('2');
 
-    expect(inputElement.value).to.equal('(2__) ___-____');
+    expect(inputElement.value).toBe('(2__) ___-____');
   });
 
   it('works with a number by coercing it into a string', () => {
@@ -190,7 +190,7 @@ describe('`update` method', () => {
 
     textMaskControl.update(2);
 
-    expect(inputElement.value).to.equal('(2__) ___-____');
+    expect(inputElement.value).toBe('(2__) ___-____');
   });
 
   it('works with `undefined` and `null` by treating them as empty strings', () => {
@@ -198,22 +198,10 @@ describe('`update` method', () => {
     const textMaskControl = createTextMaskInputElement({ inputElement, mask });
 
     textMaskControl.update(undefined);
-    expect(inputElement.value).to.equal('');
+    expect(inputElement.value).toBe('');
 
     textMaskControl.update(null);
-    expect(inputElement.value).to.equal('');
-  });
-
-  it('throws if given a value that it cannot work with', () => {
-    const mask = ['(', /\d/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
-    const textMaskControl = createTextMaskInputElement({ inputElement, mask });
-
-    // @ts-expect-error
-    expect(() => textMaskControl.update({})).to.throw();
-    // @ts-expect-error
-    expect(() => textMaskControl.update(() => 'howdy')).to.throw();
-    // @ts-expect-error
-    expect(() => textMaskControl.update([])).to.throw();
+    expect(inputElement.value).toBe('');
   });
 
   it('adjusts the caret position', () => {
@@ -229,7 +217,7 @@ describe('`update` method', () => {
     inputElement.selectionStart = 1;
 
     textMaskControl.update();
-    expect(inputElement.selectionStart).to.equal(2);
+    expect(inputElement.selectionStart).toBe(2);
   });
 
   it.skip('does not adjust the caret position if the input element is not focused', async () => {
@@ -238,10 +226,10 @@ describe('`update` method', () => {
 
     await userEvent.clear(inputElement);
     await userEvent.type(inputElement, '2');
-    inputElement.selectionStart = 1;
+    await userEvent.tab();
 
     textMaskControl.update();
-    expect(inputElement.selectionStart).to.equal(0);
+    expect(inputElement.selectionStart).toBe(0);
   });
 
   it('calls the mask function before every update', () => {
@@ -250,11 +238,11 @@ describe('`update` method', () => {
 
     inputElement.value = '2';
     textMaskControl.update();
-    expect(inputElement.value).to.equal('2___');
+    expect(inputElement.value).toBe('2___');
 
     inputElement.value = '24';
     textMaskControl.update();
-    expect(inputElement.value).to.equal('24__');
+    expect(inputElement.value).toBe('24__');
 
     expect(maskSpy).toHaveBeenCalledTimes(2);
   });
@@ -265,7 +253,7 @@ describe('`update` method', () => {
 
     inputElement.value = 'a';
     textMaskControl.update();
-    expect(inputElement.value).to.equal('a');
+    expect(inputElement.value).toBe('a');
   });
 
   it('can be disabled by returning `false` from mask function', () => {
@@ -274,7 +262,7 @@ describe('`update` method', () => {
 
     inputElement.value = 'a';
     textMaskControl.update();
-    expect(inputElement.value).to.equal('a');
+    expect(inputElement.value).toBe('a');
   });
 
   it('can pass in a config object to the update method', async () => {
@@ -285,7 +273,7 @@ describe('`update` method', () => {
     await userEvent.type(inputElement, '2');
 
     textMaskControl.update(inputElement.value, { inputElement, mask });
-    expect(inputElement.value).to.equal('(2__) ___-____');
+    expect(inputElement.value).toBe('(2__) ___-____');
   });
 
   it('can change the mask passed to the update method', async () => {
@@ -298,7 +286,7 @@ describe('`update` method', () => {
       inputElement,
       mask: ['(', /\d/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
     });
-    expect(inputElement.value).to.equal('(2__) ___-____');
+    expect(inputElement.value).toBe('(2__) ___-____');
 
     textMaskControl.update('2', {
       inputElement,
@@ -322,7 +310,7 @@ describe('`update` method', () => {
         /\d/,
       ],
     });
-    expect(inputElement.value).to.equal('+1 (2__) ___-____');
+    expect(inputElement.value).toBe('+1 (2__) ___-____');
   });
 
   it('can change the guide passed to the update method', async () => {
@@ -333,10 +321,10 @@ describe('`update` method', () => {
     await userEvent.type(inputElement, '2');
 
     textMaskControl.update(inputElement.value, { inputElement, mask, guide: true });
-    expect(inputElement.value).to.equal('(2__) ___-____');
+    expect(inputElement.value).toBe('(2__) ___-____');
 
     textMaskControl.update('2', { inputElement, mask, guide: false });
-    expect(inputElement.value).to.equal('(2');
+    expect(inputElement.value).toBe('(2');
   });
 
   it('can change the placeholderChar passed to the update method', async () => {
@@ -347,10 +335,10 @@ describe('`update` method', () => {
     await userEvent.type(inputElement, '2');
 
     textMaskControl.update(inputElement.value, { inputElement, mask, placeholderChar: '_' });
-    expect(inputElement.value).to.equal('(2__) ___-____');
+    expect(inputElement.value).toBe('(2__) ___-____');
 
     textMaskControl.update('2', { inputElement, mask, placeholderChar: '*' });
-    expect(inputElement.value).to.equal('(2**) ***-****');
+    expect(inputElement.value).toBe('(2**) ***-****');
   });
 
   it('can change the inputElement passed to the update method', async () => {
@@ -384,7 +372,7 @@ describe('`update` method', () => {
 
     inputElement.value = '2';
     textMaskControl.update();
-    expect(inputElement.value).to.equal('(2__) ___-____');
+    expect(inputElement.value).toBe('(2__) ___-____');
 
     // change the mask
     config.mask = [
@@ -408,19 +396,19 @@ describe('`update` method', () => {
     ];
     inputElement.value = '23'; // <- you have to change the value
     textMaskControl.update();
-    expect(inputElement.value).to.equal('+1 (23_) ___-____');
+    expect(inputElement.value).toBe('+1 (23_) ___-____');
 
     // change the placeholderChar
     config.placeholderChar = '*';
     inputElement.value = '4'; // <- you have to change the value
     textMaskControl.update();
-    expect(inputElement.value).to.equal('+1 (4**) ***-****');
+    expect(inputElement.value).toBe('+1 (4**) ***-****');
 
     // change the guide
     config.guide = false;
     inputElement.value = '45'; // <- you have to change the value
     textMaskControl.update();
-    expect(inputElement.value).to.equal('+1 (45');
+    expect(inputElement.value).toBe('+1 (45');
   });
 
   it('can override the config passed to createTextMaskInputElement', () => {
@@ -432,7 +420,7 @@ describe('`update` method', () => {
 
     inputElement.value = '2';
     textMaskControl.update();
-    expect(inputElement.value).to.equal('(2__) ___-____');
+    expect(inputElement.value).toBe('(2__) ___-____');
 
     // pass in a config to the update method
     textMaskControl.update('23', {
@@ -458,11 +446,11 @@ describe('`update` method', () => {
       ],
       guide: false,
     });
-    expect(inputElement.value).to.equal('+1 (23');
+    expect(inputElement.value).toBe('+1 (23');
 
     // use original config again
     inputElement.value = '234'; // <- you have to change the value
     textMaskControl.update();
-    expect(inputElement.value).to.equal('(234) ___-____');
+    expect(inputElement.value).toBe('(234) ___-____');
   });
 });

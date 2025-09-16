@@ -80,23 +80,11 @@ export function isPipeResultsBoolean(pipeResults: PipeResult): pipeResults is bo
 }
 
 export function isPipeResultsString(pipeResults: PipeResult): pipeResults is string {
-  return (pipeResults as string) !== undefined;
+  return typeof pipeResults === 'string' && pipeResults !== undefined;
 }
 
 export function isPipeResultsObject(pipeResults: PipeResult): pipeResults is PipeResultObject {
-  return (pipeResults as PipeResultObject) !== undefined;
-}
-
-export function pick<T extends object, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> {
-  return keys.reduce(
-    (acc, key) => {
-      if (key in obj) {
-        acc[key] = obj[key];
-      }
-      return acc;
-    },
-    {} as Pick<T, K>,
-  );
+  return (pipeResults as PipeResultObject) !== undefined && typeof pipeResults === 'object';
 }
 
 export function getLineNumber() {

@@ -36,6 +36,7 @@ const meta = {
     },
     keepCharPositions: {
       control: 'boolean',
+      description: "It controls whether deleting or adding characters will affect the positions of other characters"
     },
     showMask: {
       control: 'boolean',
@@ -65,7 +66,6 @@ const meta = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
-// ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
 
 export const TelephoneInput: Story = {
   args: {

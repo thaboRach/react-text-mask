@@ -4,6 +4,7 @@ import createTextMaskInputElement from '../../core/createTextMaskInputElement.js
 import { Pipe } from '../../types/Pipe.js';
 import { TextMaskInputElementResult } from '../../types/TextMaskInputElement.js';
 import { isNil } from '../../utils/helpers.js';
+import { MainConfig } from '../../types/Config.js';
 
 type ComponentProps = React.InputHTMLAttributes<HTMLInputElement> & {
   mask?: Mask;
@@ -54,8 +55,8 @@ export function MaskedInput({
 
   useImperativeHandle(textMaskInputElementRef, () => {
     return {
-      update() {
-        textMaskInputElement.current?.update();
+      update(value: string | number | null, config?: MainConfig) {
+        textMaskInputElement.current?.update(value, config);
       },
       state: {
         previousConformedValue: textMaskInputElement.current?.state?.previousConformedValue ?? '',

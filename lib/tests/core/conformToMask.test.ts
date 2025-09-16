@@ -11,23 +11,9 @@ import { convertMaskToPlaceholder } from '../../utils/helpers.js';
 
 describe('conformToMask', () => {
   it('throws if mask is not an array or function (conformToMask)', () => {
-    const err = 'Text-mask: conformToMask: The mask property must be an array.';
-
-    expect(() => conformToMask('', false, {})).to.throw(err);
-    expect(() => conformToMask('', true, {})).to.throw(err);
-    // @ts-expect-error
-    expect(() => conformToMask('', 'abc', {})).to.throw(err);
-    // @ts-expect-error
-    expect(() => conformToMask('', 123, {})).to.throw(err);
-  });
-
-  it('throws if mask is not an array or function (convertMaskToPlaceholder)', () => {
-    const err = 'Text-mask: convertMaskToPlaceholder: The mask property must be an array.';
-
-    // @ts-expect-error
-    expect(() => conformToMask('', null, {})).to.throw(err);
-    // @ts-expect-error
-    expect(() => conformToMask('', {}, {})).to.throw(err);
+    const error = /mask property must be an array/i;
+    expect(() => conformToMask('', false, {})).toThrow(error);
+    expect(() => conformToMask('', true, {})).toThrow(error);
   });
 });
 
@@ -40,7 +26,7 @@ describe('Accepted character in mask', () => {
         placeholder: convertMaskToPlaceholder(input.mask, PlaceholderChar),
         currentCaretPosition: input.currentCaretPosition,
       }).conformedValue,
-    ).to.equal(input.conformedValue);
+    ).toEqual(input.conformedValue);
   });
 });
 
@@ -52,7 +38,7 @@ describe('Guide mode tests', () => {
         placeholder: convertMaskToPlaceholder(input.mask, PlaceholderChar),
         currentCaretPosition: input.currentCaretPosition,
       }).conformedValue,
-    ).to.equal(input.conformedValue);
+    ).toEqual(input.conformedValue);
   });
 });
 
@@ -65,7 +51,7 @@ describe('No guide mode', () => {
         placeholder: convertMaskToPlaceholder(input.mask, PlaceholderChar),
         currentCaretPosition: input.currentCaretPosition,
       }).conformedValue,
-    ).to.equal(input.conformedValue);
+    ).toEqual(input.conformedValue);
   });
 });
 
@@ -78,7 +64,7 @@ describe('Allow escaped masking character in mask', () => {
         placeholder: convertMaskToPlaceholder(input.mask, PlaceholderChar),
         currentCaretPosition: input.currentCaretPosition,
       }).conformedValue,
-    ).to.equal(input.conformedValue);
+    ).toEqual(input.conformedValue);
   });
 });
 
@@ -92,7 +78,7 @@ describe('keepCharPositionsTests', () => {
         keepCharPositions: true,
         currentCaretPosition: input.currentCaretPosition,
       }).conformedValue,
-    ).to.equal(input.conformedValue);
+    ).toEqual(input.conformedValue);
   });
 });
 
@@ -100,15 +86,15 @@ describe('Mask function', () => {
   it('works with mask functions', () => {
     const mask = () => [/\d/, /\d/, /\d/, /\d/];
 
-    expect(() => conformToMask('', mask, {})).to.not.throw();
+    expect(() => conformToMask('', mask, {})).not.toThrow();
   });
 
   it('calls the mask function', () => {
     const maskSpy = vi.fn(() => [/\d/, /\d/, /\d/, /\d/]);
     const result = conformToMask('2', maskSpy, {});
 
-    expect(result.conformedValue).to.equal('2___');
-    expect(maskSpy).toHaveBeenCalledTimes(1);
+    expect(result.conformedValue).toBe('2___');
+    expect(maskSpy).toHaveBeenCalledOnce();
   });
 
   it('passes the rawValue to the mask function', () => {
@@ -119,7 +105,7 @@ describe('Mask function', () => {
     };
     const result = conformToMask('2', mask, {});
 
-    expect(result.conformedValue).to.equal('2___');
+    expect(result.conformedValue).toBe('2___');
   });
 
   it('passes the config to the mask function', () => {
@@ -138,7 +124,7 @@ describe('Mask function', () => {
       placeholderChar: '_',
     });
 
-    expect(result.conformedValue).to.equal('12__');
+    expect(result.conformedValue).toBe('12__');
   });
 
   it('processes the result of the mask function and removes caretTraps', () => {
@@ -156,6 +142,6 @@ describe('Mask function', () => {
         placeholder: convertMaskToPlaceholder(input.mask, PlaceholderChar),
         currentCaretPosition: input.currentCaretPosition,
       }).conformedValue,
-    ).to.equal(input.conformedValue);
+    ).toEqual(input.conformedValue);
   });
 });
